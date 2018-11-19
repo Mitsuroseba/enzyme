@@ -49,16 +49,24 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // eslint-disable-next-line import/no-unresolved, import/extensions
 
 
-var HostRoot = 3;
-var ClassComponent = 2;
-var Fragment = 10;
-var FunctionalComponent = 1;
-var HostPortal = 4;
+var FunctionComponent = 0;
+var ClassComponent = 1;
+var IndeterminateComponent = 2; // Before we know whether it is function or class
+var HostRoot = 3; // Root of a host tree. Could be nested inside another node.
+var HostPortal = 4; // A subtree. Could be an entry point to a different renderer.
 var HostComponent = 5;
 var HostText = 6;
-var Mode = 11;
-var ContextConsumer = 12;
-var ContextProvider = 13;
+var Fragment = 7;
+var Mode = 8;
+var ContextConsumer = 9;
+var ContextProvider = 10;
+var ForwardRef = 11;
+var Profiler = 12;
+var SuspenseComponent = 13;
+var MemoComponent = 14;
+var SimpleMemoComponent = 15;
+var LazyComponent = 16;
+var IncompleteClassComponent = 17;
 
 function nodeAndSiblingsArray(nodeWithSibling) {
   var array = [];
@@ -114,7 +122,7 @@ function toTree(vnode) {
         instance: node.stateNode,
         rendered: childrenToTree(node.child)
       };
-    case FunctionalComponent:
+    case FunctionComponent:
       // 1
       return {
         nodeType: 'function',

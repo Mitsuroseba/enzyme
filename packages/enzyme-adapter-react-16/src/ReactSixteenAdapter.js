@@ -22,16 +22,24 @@ import {
 } from 'enzyme-adapter-utils';
 import { findCurrentFiberUsingSlowPath } from 'react-reconciler/reflection';
 
-const HostRoot = 3;
-const ClassComponent = 2;
-const Fragment = 10;
-const FunctionalComponent = 1;
-const HostPortal = 4;
-const HostComponent = 5;
-const HostText = 6;
-const Mode = 11;
-const ContextConsumer = 12;
-const ContextProvider = 13;
+var FunctionComponent = 0;
+var ClassComponent = 1;
+var IndeterminateComponent = 2; // Before we know whether it is function or class
+var HostRoot = 3; // Root of a host tree. Could be nested inside another node.
+var HostPortal = 4; // A subtree. Could be an entry point to a different renderer.
+var HostComponent = 5;
+var HostText = 6;
+var Fragment = 7;
+var Mode = 8;
+var ContextConsumer = 9;
+var ContextProvider = 10;
+var ForwardRef = 11;
+var Profiler = 12;
+var SuspenseComponent = 13;
+var MemoComponent = 14;
+var SimpleMemoComponent = 15;
+var LazyComponent = 16;
+var IncompleteClassComponent = 17;
 
 function nodeAndSiblingsArray(nodeWithSibling) {
   const array = [];
@@ -85,7 +93,7 @@ function toTree(vnode) {
         instance: node.stateNode,
         rendered: childrenToTree(node.child),
       };
-    case FunctionalComponent: // 1
+    case FunctionComponent: // 1
       return {
         nodeType: 'function',
         type: node.type,
